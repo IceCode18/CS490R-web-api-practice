@@ -2,10 +2,27 @@ const express = require('express')
 const router = express.Router();
 const Comment = require('../models/comment');
 
-router.get("/", (req, res) => {
-    res.send("You are on home directory."); 
+// Read all
+router.get("/", async (req, res) => {
+    try{
+        const comments = await Comment.find();
+        res.json(comments);
+    }catch(error){
+        res.json({ message: error });
+    }
 });
 
+// Read one
+router.get("/:commentId", async (req, res) => {
+    try{
+        const comment = await Comment.findById(req.params.commentId);
+        res.json(comment);
+    }catch(error){
+        res.json({ message: error });
+    }
+});
+
+// Create
 router.post("/", async (req, res) => {
    const comment = new Comment({
        user_id: req.body.user_id,
@@ -19,5 +36,9 @@ router.post("/", async (req, res) => {
        res.json({ message: error });
    }
 });
+
+// Update
+
+// Delete
 
 module.exports = router;
