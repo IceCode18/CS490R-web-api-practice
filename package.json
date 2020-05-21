@@ -1,0 +1,19 @@
+{
+  "name": "final-project-kaiser-19",
+  "version": "1.0.0",
+  "description": "Share PC Builds online",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BYUHCS490R/final-project-Kaiser-19.git"
+  },
+  "author": "jtiano19",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BYUHCS490R/final-project-Kaiser-19/issues"
+  },
+  "homepage": "https://github.com/BYUHCS490R/final-project-Kaiser-19#readme"
+}
