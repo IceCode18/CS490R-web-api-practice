@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/BYUHCS490R/final-project-Kaiser-19/issues"
   },
-  "homepage": "https://github.com/BYUHCS490R/final-project-Kaiser-19#readme"
+  "homepage": "https://github.com/BYUHCS490R/final-project-Kaiser-19#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4"
+  }
 }
