@@ -40,5 +40,13 @@ router.post("/", async (req, res) => {
 // Update
 
 // Delete
+router.delete("/:commentId", async (req, res) => {
+    try{
+        const removedComment = await Comment.remove({ _id: req.params.commentId });
+        res.json(removedComment);
+    }catch(error){
+        res.json({ message: error });
+    }
+});
 
 module.exports = router;
