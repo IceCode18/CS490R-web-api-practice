@@ -1,11 +1,14 @@
 // Express variables
 const express = require('express')
 const app = express();
+const bodyParser = require('body-parser')
+
+// Use body-parser middleware
+app.use(bodyParser.json())
 
 // DB connection variables
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://projectTester:projecttestersupersecret@projecttest-pgisb.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoose = require("mongoose");
+mongoose.connect("mongodb://localhost/test", {useNewUrlParser: true, useUnifiedTopology: true  });
 
 // Routes import
 const commentsRoute = require('./routes/comments');
@@ -13,13 +16,12 @@ app.use('/comments', commentsRoute);
 
 
 // Connect to DB
-client.connect(err => {
-  //const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  console.log("Connected")
-  client.close();
+mongoose.connection
+.once("open",() => console.log("Connected"))
+.on("error", error => {
+  console.log(error)
 });
 
-app.listen("3000", (req, res) => {
+app.listen("27017", (req, res) => {
     console.log("Now listening to port 3000");
 });
