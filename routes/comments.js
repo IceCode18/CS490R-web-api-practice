@@ -38,6 +38,17 @@ router.post("/", async (req, res) => {
 });
 
 // Update
+router.patch("/:commentId", async (req, res) => {
+    try{
+        const updatedComment = await Comment.updateOne(
+            { _id: req.params.commentId },
+            { $set: { body: req.body.body, } } 
+            );
+        res.json(updatedComment);
+    }catch(error){
+        res.json({ message: error });
+    }
+});
 
 // Delete
 router.delete("/:commentId", async (req, res) => {
