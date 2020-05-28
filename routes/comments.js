@@ -2,6 +2,13 @@ const express = require('express')
 const router = express.Router();
 const Comment = require('../models/comment');
 
+router.get("/testAPI",  (req, res) => {
+    const resObject = {
+        message: "Test API is working"
+    }
+    res.send(resObject);
+});
+
 // Read all
 router.get("/", async (req, res) => {
     try{
