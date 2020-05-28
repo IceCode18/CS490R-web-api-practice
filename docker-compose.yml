@@ -6,7 +6,7 @@ services:
         ports: 
             - "3000:3000"
         volumes: 
-            - ./:/usr/src/app
+            - ./:/c/usr/src/app
         depends_on: 
             - mongo
     mongo:
@@ -14,4 +14,4 @@ services:
         ports: 
             - "27017:27017"
         volumes: 
-            - ./data:/data/db
+            - ./data:/c/data/db
