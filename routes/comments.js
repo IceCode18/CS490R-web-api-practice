@@ -40,6 +40,10 @@ router.get("/:commentId", async (req, res) => {
 
 // Create
 router.post("/", async (req, res) => {
+    if(!req.body.user_id || !req.body.post_id || !req.body.body){
+        res.status(400)
+        res.json({success: false, error: "Missing post_id, user_id, or body."})
+    }
    const comment = new Comment({
        user_id: req.body.user_id,
        post_id: req.body.post_id,
