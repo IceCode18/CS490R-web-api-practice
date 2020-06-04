@@ -17,13 +17,15 @@ router.get("/testAPI",  (req, res) => {
 });
 
 // Read all
-router.get("/", async (req, res) => {
-    try{
-        const comments = await Comment.find();
+router.get("/", function(req, res) {
+    Comment.find({})
+     .then(function(comments){
         res.json(comments);
-    }catch(error){
-        res.json({ message: error });
-    }
+     })
+    .catch(function(err){
+        res.status(500)
+        res.json({ success: false, error: err });
+    })
 });
 
 // Read one
