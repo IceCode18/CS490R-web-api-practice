@@ -2,6 +2,13 @@ const express = require('express')
 const router = express.Router();
 const Comment = require('../models/comment');
 
+// Logging the requests
+router.use( (req, res, next) => {
+    console.log("A request was initiated...")
+    next();
+})
+
+// Test to see if API is working
 router.get("/testAPI",  (req, res) => {
     const resObject = {
         message: "Test API is working"
