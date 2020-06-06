@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Comment = require('./Comment');
+
 
 const UserSchema = mongoose.Schema({
     created_at:{
@@ -61,6 +63,16 @@ function isAdmin(user){
         return false;
     }
 }
+async function isCommentOwner(comment_id, user){
+    const comment = await Comment.findOne({_id: comment_id});
+    if( user==comment.user_id || isAdmin(user) ){
+        return true;
+    }
+    else{
+       return false;
+    }
+}
 
 module.exports = mongoose.model('User', UserSchema);
 module.exports.isAdmin = isAdmin;
+module.exports.isCommentOwner = isCommentOwner;

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const models = require('../models');
 const Comment = models.Comment;
+const User = models.User;
 
 // Logging the requests
 router.use( (req, res, next) => {
@@ -73,29 +74,42 @@ router.post("/comments", async (req, res) => {
 });
 
 // Update
-router.patch("/comments/:commentId", async (req, res) => {
-    try{
-        const updatedComment = await Comment.updateOne(
-            { _id: req.params.commentId },
-            { $set: { body: req.body.body, } } 
-            );
-        res.json(updatedComment);
-        console.log("Patch request was successful...");
-    }catch(error){
-        res.status(500)
-        res.json({ message: error });
+router.patch("/comments/:id", async (req, res) => {
+    if(await User.isCommentOwner(req.params.id, req.user)){
+        try{
+            const updatedComment =  await Comment.updateOne(
+                    { _id: req.params.id },
+                    { $set: { body: req.body.body, } } 
+                    );
+            res.json(updatedComment);
+            console.log("Comment patch request authorized");
+        }
+        catch(error){
+            res.status(500)
+            res.json({ message: error });
+        } 
+    } else{
+        res.status(401);
+        console.log("Invalid authorization to execute the command.")
+        res.json({ message: "You don't have proper authorization to execute the command." });
     }
 });
 
 // Delete
 router.delete("/comments/:commentId", async (req, res) => {
-    try{
-        const removedComment = await Comment.remove({ _id: req.params.commentId });
-        res.json(removedComment);
-        console.log("Delete request was successful...");
-    }catch(error){
-        res.status(500)
-        res.json({ message: error });
+    if(await User.isCommentOwner(req.params.id, req.user)){
+        try{
+            const removedComment = await Comment.remove({ _id: req.params.commentId });
+            res.json(removedComment);
+            console.log("Delete request was successful...");
+        }catch(error){
+            res.status(500)
+            res.json({ message: error });
+        }
+    } else{
+        res.status(401);
+        console.log("Invalid authorization to execute the command.")
+        res.json({ message: "You don't have proper authorization to execute the command." });
     }
 });
 
