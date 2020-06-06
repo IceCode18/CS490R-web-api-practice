@@ -37,6 +37,7 @@ router.get("/comments/:commentId", async (req, res) => {
         res.json(comment);
         console.log("Read one comment request was successful...");
     }catch(error){
+        res.status(500)
         res.json({ message: error });
     }
 });
@@ -72,6 +73,7 @@ router.patch("/comments/:commentId", async (req, res) => {
         res.json(updatedComment);
         console.log("Patch request was successful...");
     }catch(error){
+        res.status(500)
         res.json({ message: error });
     }
 });
@@ -83,6 +85,7 @@ router.delete("/comments/:commentId", async (req, res) => {
         res.json(removedComment);
         console.log("Delete request was successful...");
     }catch(error){
+        res.status(500)
         res.json({ message: error });
     }
 });

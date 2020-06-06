@@ -10,17 +10,8 @@ const UserSchema = mongoose.Schema({
         type: Date,
         default: null
     },
-    first_name:{
+    name:{
         type: String,
-        required: true
-    },
-    last_name:{
-        type: String,
-        required: true
-    },
-    username:{
-        type: String,
-        unique: true,
         required: true
     },
     email:{
@@ -31,6 +22,10 @@ const UserSchema = mongoose.Schema({
     password:{
         type: String,
         required: true
+    },
+    user_type:{
+        type: String,
+        default: "User"
     },
     posts:{
         type: [],
