@@ -32,25 +32,33 @@ router.get("/comments", function(req, res) {
 });
 
 // Read one
-router.get("/comments/:commentId", async (req, res) => {
-    try{
-        const comment = await Comment.findById(req.params.commentId);
-        res.json(comment);
-        console.log("Read one comment request was successful...");
-    }catch(error){
+router.get("/comments/:id", function(req, res) {
+   Comment.findOne({_id: req.params.id })
+   .populate('user_id','email')
+   .then(function(comment){
+       if(comment){
+           res.json(comment)
+           console.log("Read one request was successful...");
+       }else{
+           res.status(404)
+           res.json({ error: "Comment does not exist."})
+       }
+   })
+   .catch(function(err) {
+        console.log(err)
         res.status(500)
-        res.json({ message: error });
-    }
-});
+        res.json({message: "Error", error: err })
+   })
+})
 
 // Create
 router.post("/comments", async (req, res) => {
-    if(!req.body.user_id || !req.body.post_id || !req.body.body){
+    if(!req.user._id || !req.body.post_id || !req.body.body){
         res.status(400)
         res.json({success: false, error: "Missing post_id, user_id, or body."})
     }
    const comment = new Comment({
-       user_id: req.body.user_id,
+       user_id: req.user._id,
        post_id: req.body.post_id,
        body: req.body.body
    });

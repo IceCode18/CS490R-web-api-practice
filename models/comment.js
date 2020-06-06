@@ -10,7 +10,8 @@ const CommentSchema = mongoose.Schema({
         default: null
     },
     user_id:{
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     post_id:{
         type: String
