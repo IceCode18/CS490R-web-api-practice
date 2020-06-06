@@ -89,7 +89,7 @@ router.patch("/comments/:id", async (req, res) => {
             res.json({ message: error });
         } 
     } else{
-        res.status(401);
+        res.status(403);
         console.log("Invalid authorization to execute edit comment command.")
         res.json({ message: "You don't have proper authorization to execute edit comment command." });
     }
@@ -107,7 +107,7 @@ router.delete("/comments/:id", async (req, res) => {
             res.json({ message: error });
         }
     } else{
-        res.status(401);
+        res.status(403);
         console.log("Invalid authorization to execute delete comment command.")
         res.json({ message: "You don't have proper authorization to execute delete comment command." });
     }
