@@ -12,9 +12,10 @@ router.use( (req, res, next) => {
 // Test to see if API is working
 router.get("/testAPI",  (req, res) => {
     const resObject = {
-        message: "Test API is working"
+        message: "Test API is working",
+        user: req.user
     }
-    res.send(resObject);
+    return res.send(resObject);
 });
 
 // Read all

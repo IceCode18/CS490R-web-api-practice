@@ -1,3 +1,4 @@
 module.exports = {
-    comments: require('./comments')
+    comments: require('./comments'),
+    auth: require('./auth')
 }
