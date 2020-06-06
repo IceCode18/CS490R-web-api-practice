@@ -52,4 +52,15 @@ UserSchema.methods.comparePassword = function(password, cb){
     })
 }
 
+
+function isAdmin(user){
+    if(user.user_type === "Admin"){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 module.exports = mongoose.model('User', UserSchema);
+module.exports.isAdmin = isAdmin;

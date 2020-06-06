@@ -16,7 +16,8 @@ mongoose.connect("mongodb://mongo:27017/test", {useNewUrlParser: true, useUnifie
             app.use(bodyParser.json())
             app.use('/api/auth', routes.auth)
             app.use('/api', passport.authenticate('jwt', { session: false }), routes.comments); // Routes import
-
+            app.use('/api', passport.authenticate('jwt', { session: false }), routes.users);
+            
             app.listen("3000", (req, res) => {
                 console.log("Now listening to port 3000...");
             })
