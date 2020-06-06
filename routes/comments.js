@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-const Comment = require('../models/comment');
+const Comment = require('../models/Comment');
 
 // Logging the requests
 router.use( (req, res, next) => {
@@ -21,6 +21,7 @@ router.get("/", function(req, res) {
     Comment.find({})
      .then(function(comments){
         res.json(comments);
+        console.log("Read all comments request was successful...");
      })
     .catch(function(err){
         res.status(500)
@@ -33,6 +34,7 @@ router.get("/:commentId", async (req, res) => {
     try{
         const comment = await Comment.findById(req.params.commentId);
         res.json(comment);
+        console.log("Read one comment request was successful...");
     }catch(error){
         res.json({ message: error });
     }
@@ -52,6 +54,7 @@ router.post("/", async (req, res) => {
    try{
        const savedComment = await comment.save();
        res.json(savedComment);
+       console.log("Post request was successful...");
    }catch(err){
        res.status(500)
        res.json({ sucess: false, error: err });
@@ -66,6 +69,7 @@ router.patch("/:commentId", async (req, res) => {
             { $set: { body: req.body.body, } } 
             );
         res.json(updatedComment);
+        console.log("Patch request was successful...");
     }catch(error){
         res.json({ message: error });
     }
@@ -76,6 +80,7 @@ router.delete("/:commentId", async (req, res) => {
     try{
         const removedComment = await Comment.remove({ _id: req.params.commentId });
         res.json(removedComment);
+        console.log("Delete request was successful...");
     }catch(error){
         res.json({ message: error });
     }
