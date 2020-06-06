@@ -39,7 +39,7 @@ router.get("/comments/:id", function(req, res) {
    .then(function(comment){
        if(comment){
            res.json(comment)
-           console.log("Read one request was successful...");
+           console.log("Read one comment request was successful...");
        }else{
            res.status(404)
            res.json({ error: "Comment does not exist."})
@@ -66,7 +66,7 @@ router.post("/comments", async (req, res) => {
    try{
        const savedComment = await comment.save();
        res.json(savedComment);
-       console.log("Post request was successful...");
+       console.log("Comment post request was successful...");
    }catch(err){
        res.status(500)
        res.json({ sucess: false, error: err });
@@ -90,26 +90,26 @@ router.patch("/comments/:id", async (req, res) => {
         } 
     } else{
         res.status(401);
-        console.log("Invalid authorization to execute the command.")
-        res.json({ message: "You don't have proper authorization to execute the command." });
+        console.log("Invalid authorization to execute edit comment command.")
+        res.json({ message: "You don't have proper authorization to execute edit comment command." });
     }
 });
 
 // Delete
-router.delete("/comments/:commentId", async (req, res) => {
+router.delete("/comments/:id", async (req, res) => {
     if(await User.isCommentOwner(req.params.id, req.user)){
         try{
-            const removedComment = await Comment.remove({ _id: req.params.commentId });
+            const removedComment = await Comment.remove({ _id: req.params.id });
             res.json(removedComment);
-            console.log("Delete request was successful...");
+            console.log("Comment delete request was successful...");
         }catch(error){
             res.status(500)
             res.json({ message: error });
         }
     } else{
         res.status(401);
-        console.log("Invalid authorization to execute the command.")
-        res.json({ message: "You don't have proper authorization to execute the command." });
+        console.log("Invalid authorization to execute delete comment command.")
+        res.json({ message: "You don't have proper authorization to execute delete comment command." });
     }
 });
 
