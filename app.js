@@ -1,7 +1,8 @@
 // Express variables
 const express = require('express')
 const bodyParser = require('body-parser')
-const commentsRoute = require('./routes/comments')
+// const commentsRoute = require('./routes/comments')
+const routes = require('./routes')
 const mongoose = require("mongoose")
 
 // Connect to DB
@@ -11,7 +12,7 @@ mongoose.connect("mongodb://mongo:27017/test", {useNewUrlParser: true, useUnifie
             const app = express()
             app.use(bodyParser.urlencoded({extended: true}))
             app.use(bodyParser.json())
-            app.use('/comments', commentsRoute); // Routes import
+            app.use('/api', routes.comments); // Routes import
 
             app.listen("3000", (req, res) => {
                 console.log("Now listening to port 3000...");

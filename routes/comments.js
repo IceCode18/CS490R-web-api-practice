@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router();
-const Comment = require('../models/Comment');
+const models = require('../models');
+const Comment = models.Comment;
 
 // Logging the requests
 router.use( (req, res, next) => {
@@ -17,7 +18,7 @@ router.get("/testAPI",  (req, res) => {
 });
 
 // Read all
-router.get("/", function(req, res) {
+router.get("/comments", function(req, res) {
     Comment.find({})
      .then(function(comments){
         res.json(comments);
@@ -30,7 +31,7 @@ router.get("/", function(req, res) {
 });
 
 // Read one
-router.get("/:commentId", async (req, res) => {
+router.get("/comments/:commentId", async (req, res) => {
     try{
         const comment = await Comment.findById(req.params.commentId);
         res.json(comment);
@@ -41,7 +42,7 @@ router.get("/:commentId", async (req, res) => {
 });
 
 // Create
-router.post("/", async (req, res) => {
+router.post("/comments", async (req, res) => {
     if(!req.body.user_id || !req.body.post_id || !req.body.body){
         res.status(400)
         res.json({success: false, error: "Missing post_id, user_id, or body."})
@@ -62,7 +63,7 @@ router.post("/", async (req, res) => {
 });
 
 // Update
-router.patch("/:commentId", async (req, res) => {
+router.patch("/comments/:commentId", async (req, res) => {
     try{
         const updatedComment = await Comment.updateOne(
             { _id: req.params.commentId },
@@ -76,7 +77,7 @@ router.patch("/:commentId", async (req, res) => {
 });
 
 // Delete
-router.delete("/:commentId", async (req, res) => {
+router.delete("/comments/:commentId", async (req, res) => {
     try{
         const removedComment = await Comment.remove({ _id: req.params.commentId });
         res.json(removedComment);
