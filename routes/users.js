@@ -103,22 +103,37 @@ router.patch("/users/:id", async (req, res) => {
 
 // Update user for user
 router.patch("/users/edit", async (req, res) => {
+    console.log("A user's request to edit account was initiated...")
     try{
-        const updatedUser =  await User.updateOne(
-                { _id: req.user.id },
-                { $set: 
-                    {   name: req.body.name,
-                        email: req.body.email,
-                        password: req.body.password} 
-                    } 
-                );
-        res.json(updatedUser);
-        console.log("User patch request authorized");
+        const user = await User.findOne({_id: req.user.id});
+        if(user.password===req.body.old_password){
+            user.name = req.body.name;
+            user.email =  req.body.email;
+            user.password = req.body.new_password;
+            user.save((err) => {
+                if (err) {
+                    console.log(err)
+                    res.status(400)
+                    return res.json({success: false, message: "Update account failure."})
+                }
+                res.json({
+                    success: true,
+                    message: "User account changes succesfully saved!",
+                    user: user
+                })
+            })         
+            console.log("A user's request to edit account was authorized.");
+        }
+        else{
+            console.log("A user's request to edit account was unauthorized")
+            res.status(403)
+            return res.json({success: false, message: "You don't have proper authorization to edit this user."})
+        }
     }
     catch(error){
         res.status(500)
         res.json({ message: error });
-    } 
+    }
 });
 
 // Delete user
