@@ -102,10 +102,11 @@ router.patch("/users/:id", async (req, res) => {
 });
 
 // Update user for user
-router.patch("/users/edit", async (req, res) => {
+router.patch("/users/edit/:id", async (req, res) => {
     console.log("A user's request to edit account was initiated...")
+    console.log(req.user)
     try{
-        const user = await User.findOne({_id: req.user.id});
+        const user = await User.findOne({_id: req.params.id});
         if(user.password===req.body.old_password){
             user.name = req.body.name;
             user.email =  req.body.email;
