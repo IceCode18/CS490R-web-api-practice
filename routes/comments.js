@@ -75,7 +75,7 @@ router.post("/comments", async (req, res) => {
 
 // Update
 router.patch("/comments/:id", async (req, res) => {
-    if(await User.isCommentOwner(req.params.id, req.user)){
+    if(await User.isCommentOwner(req.params.id, req.user.id)){
         try{
             const updatedComment =  await Comment.updateOne(
                     { _id: req.params.id },
@@ -97,7 +97,7 @@ router.patch("/comments/:id", async (req, res) => {
 
 // Delete
 router.delete("/comments/:id", async (req, res) => {
-    if(await User.isCommentOwner(req.params.id, req.user)){
+    if(await User.isCommentOwner(req.params.id, req.user.id)){
         try{
             const removedComment = await Comment.remove({ _id: req.params.id });
             res.json(removedComment);

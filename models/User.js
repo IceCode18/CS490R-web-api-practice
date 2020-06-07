@@ -69,6 +69,8 @@ async function isCommentOwner(comment_id, user){
         return true;
     }
     else{
+        console.log(user);
+        console.log(comment.user_id);
        return false;
     }
 }
