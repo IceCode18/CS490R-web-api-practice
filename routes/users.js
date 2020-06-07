@@ -104,7 +104,6 @@ router.patch("/users/:id", async (req, res) => {
 // Update user for user
 router.patch("/users/edit/:id", async (req, res) => {
     console.log("A user's request to edit account was initiated...")
-    console.log(req.user)
     try{
         const user = await User.findOne({_id: req.params.id});
         if(user.password===req.body.old_password){
@@ -137,9 +136,31 @@ router.patch("/users/edit/:id", async (req, res) => {
     }
 });
 
-// Delete user
+// Delete user for Admin
 router.delete("/users/:id", async (req, res) => {
+    console.log("A user's request to delete account was initiated...")
     if( User.isAdmin(req.user)){
+        try{
+            const removedUser = await User.remove({ _id: req.params.id });
+            res.json(removedUser);
+            console.log("User delete request was successful...");
+        }
+        catch(error){
+            res.status(500)
+            res.json({ message: error });
+        } 
+    } else{
+        res.status(403);
+        console.log("Invalid authorization to execute delete user command.")
+        res.json({ message: "You don't have proper authorization to execute delete user command." });
+    }
+});
+
+// Delete user for Regular users
+router.delete("/users/delete/:id", async (req, res) => {
+    console.log("A user's request to delete account was initiated...")
+    const user = await User.findOne({_id: req.params.id});
+    if(user.password===req.body.password){
         try{
             const removedUser = await User.remove({ _id: req.params.id });
             res.json(removedUser);
