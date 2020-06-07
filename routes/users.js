@@ -69,16 +69,25 @@ router.get("/users/:id", function(req, res) {
 router.patch("/users/:id", async (req, res) => {
     if( User.isAdmin(req.user)){
         try{
-            const updatedUser =  await User.updateOne(
-                    { _id: req.params.id },
-                    { $set: 
-                        {   name: req.body.name,
-                            email: req.body.email,
-                            password: req.body.password,
-                            user_type: req.body.user_type } 
-                        } 
-                    );
-            res.json(updatedUser);
+            const user = await User.findOne({_id: req.params.id});
+            user.name = req.body.name;
+            user.email =  req.body.email;
+            user.password = req.body.password;
+            user.user_type = req.body.user_type;
+            //const user = await User.findOne({_id: req.params.id});
+            user.save((err) => {
+                if (err) {
+                    console.log(err)
+                    res.status(400)
+                    return res.json({success: false, message: "An error happened."})
+                }
+                res.json({
+                    success: true,
+                    message: "User succesfully saved!",
+                    user: user
+                })
+            })         
+            //res.json(updatedUser);
             console.log("User patch request authorized");
         }
         catch(error){
@@ -92,7 +101,7 @@ router.patch("/users/:id", async (req, res) => {
     }
 });
 
-// Update user for admin
+// Update user for user
 router.patch("/users/edit", async (req, res) => {
     try{
         const updatedUser =  await User.updateOne(
@@ -112,4 +121,22 @@ router.patch("/users/edit", async (req, res) => {
     } 
 });
 
+// Delete user
+router.delete("/users/:id", async (req, res) => {
+    if( User.isAdmin(req.user)){
+        try{
+            const removedUser = await User.remove({ _id: req.params.id });
+            res.json(removedUser);
+            console.log("User delete request was successful...");
+        }
+        catch(error){
+            res.status(500)
+            res.json({ message: error });
+        } 
+    } else{
+        res.status(403);
+        console.log("Invalid authorization to execute delete user command.")
+        res.json({ message: "You don't have proper authorization to execute delete user command." });
+    }
+});
 module.exports = router;

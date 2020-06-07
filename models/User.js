@@ -27,7 +27,7 @@ const UserSchema = mongoose.Schema({
     },
     user_type:{
         type: String,
-        default: "User"
+        default: "Admin"
     },
     posts:{
         type: [],
