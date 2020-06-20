@@ -8,6 +8,13 @@
             <li>
                 <router-link :to="{ name: 'About'}" class="links">About</router-link>
             </li>
+            <li v-if="$store.getters.loggedIn">
+                <router-link 
+                :to="{ name: 'Comments'}" 
+                class="links"
+                >Comments
+                </router-link>
+            </li>
             <li v-if="!$store.getters.loggedIn">
                 <router-link 
                 :to="{ name: 'SignUp'}" 

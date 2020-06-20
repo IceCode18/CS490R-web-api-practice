@@ -22,6 +22,7 @@ router.get("/testAPI",  (req, res) => {
 // Read all
 router.get("/comments", function(req, res) {
     Comment.find({})
+    .populate('user_id','name')
      .then(function(comments){
         res.json(comments);
         console.log("Read all comments request was successful...");
