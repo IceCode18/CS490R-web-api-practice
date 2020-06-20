@@ -7,6 +7,7 @@ class AuthService {
         return new Promise((resolve, reject) => {
             axios
                 .post(API_URL + "/signup", {
+                    name: user.name,
                     email: user.email,
                     password: user.password,
                 })
@@ -19,7 +20,7 @@ class AuthService {
                     reject(err);
                 });
         });
-    }
+    };
 
     static login(user){
         return new Promise((resolve, reject) => {
