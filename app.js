@@ -1,7 +1,6 @@
 // Express variables
 const express = require('express')
 const bodyParser = require('body-parser')
-// const commentsRoute = require('./routes/comments')
 const passport =require('passport')
 const routes = require('./routes')
 const mongoose = require("mongoose")
