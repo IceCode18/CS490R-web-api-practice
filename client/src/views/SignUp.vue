@@ -20,6 +20,8 @@
     </div>
 </template>
 <script>
+import AuthService from "@/services/auth";
+
 export default {
     name: "SignUp",
     data(){
@@ -35,7 +37,20 @@ export default {
             console.log("Sign Up Initiated");
             this.submitted = true;
             if (this.email != "" && this.password != ""){
-               this.message = "Data sent to API"
+            //    this.message = "Data sent to API"
+                AuthService.signup({
+                    email: this.email,
+                    password: this.password,
+                })
+                .then((user) => {
+                    console.log(user);
+                    this.message = "User Created";
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.message = "Email already taken";
+                    this.submitted = false;
+                });
             }else{
                 this.message = "Email and Password required.";
                 this.submitted = false;
