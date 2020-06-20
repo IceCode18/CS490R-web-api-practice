@@ -50,6 +50,21 @@ export default {
                 .then((user) => {
                     console.log(user);
                     this.message = "User Created";
+                    this.$router.push("/login");
+                    this.$store
+                    .dispatch("login", {
+                        email: this.email,
+                        password: this.password,
+                    })
+                    .then(() =>{
+                        console.log("Logged In");
+                        this.$router.push("/comment");
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        this.message = "Invalid Email or Password";
+                        this.submitted = false;
+                    })
                 })
                 .catch((err) => {
                     console.log(err);

@@ -46,6 +46,7 @@ export default {
                 })
                 .then(() =>{
                     console.log("Logged In");
+                    this.$router.push("/comment");
                 })
                 .catch((err) => {
                     console.log(err);
