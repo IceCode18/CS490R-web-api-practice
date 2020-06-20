@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import AuthService from "@/services/auth";
+// import AuthService from "@/services/auth";
 
 export default {
     name: "Login",
@@ -39,19 +39,32 @@ export default {
             this.submitted = true;
             if (this.email != "" && this.password != ""){
                 console.log("Sending login request...");
-                AuthService.login({
+                this.$store
+                .dispatch("login", {
                     email: this.email,
                     password: this.password,
                 })
-                .then( token => {
-                    console.log(token);
-                    this.message = "Logged in";
+                .then(() =>{
+                    console.log("Logged In");
                 })
-                .catch( err => {
+                .catch((err) => {
                     console.log(err);
-                    this.message = "Invalid Email/Password";
+                    this.message = "Invalid Email or Password";
                     this.submitted = false;
-                });
+                })
+                // AuthService.login({
+                //     email: this.email,
+                //     password: this.password,
+                // })
+                // .then( token => {
+                //     console.log(token);
+                //     this.message = "Logged in";
+                // })
+                // .catch( err => {
+                //     console.log(err);
+                //     this.message = "Invalid Email/Password";
+                //     this.submitted = false;
+                // });
             }else{
                 this.message = "Email and Password required.";
                 this.submitted = false;
