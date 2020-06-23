@@ -32,6 +32,20 @@ class CommentService {
                 });
         });
     }
+
+    static postComment(token, post, body){
+        return new Promise((resolve, reject) => {
+            axios({
+                method: 'post',
+                url: API_URL,
+                data: {
+                  post_id: post,
+                  body: body
+                }
+              });
+        });
+    }
+    
 }
 
 export default CommentService;
