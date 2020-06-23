@@ -6,10 +6,12 @@
         </div>
         <div id="comments">
             <div class="comment" v-for="comment in this.comments" :key="comment._id">
+                <router-link :to="{ name: 'Comment', params: { id: comment._id  }}">
                 User: {{ comment.user_id.name}}
                 <p class="class">
                     {{comment.body}}
                 </p>
+                </router-link>
             </div>
         </div>
     </div>

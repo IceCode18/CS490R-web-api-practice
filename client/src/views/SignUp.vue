@@ -62,7 +62,7 @@ export default {
                     })
                     .catch((err) => {
                         console.log(err);
-                        this.message = "Invalid Email or Password";
+                        this.message = "Error logging in";
                         this.submitted = false;
                     })
                 })

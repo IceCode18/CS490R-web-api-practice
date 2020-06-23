@@ -29,10 +29,17 @@ const routes = [
       import(/* webpackChunkName: "login" */ "../views/Login.vue")
   },
   {
-    path: "/comment",
+    path: "/comments",
     name: "Comments",
     component: () =>
       import(/* webpackChunkName: "comments" */ "../views/Comments.vue")
+  },
+  {
+    path: "/comments/:id",
+    name: "Comment",
+    component: () =>
+      import(/* webpackChunkName: "comments" */ "../views/Comment.vue"),
+    props: true
   }
 ];
 

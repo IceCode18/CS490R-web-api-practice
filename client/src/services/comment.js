@@ -16,6 +16,21 @@ class CommentService {
                     reject(err);
                 });
         });
+    };
+
+    static getSingleComment(token, id){
+        return new Promise((resolve, reject) => {
+            axios
+                .get(API_URL + "/" + id, { headers: {authorization: token} })
+                .then((res) => {
+                    console.log("Service return success");
+                    resolve(res.data);
+                })
+                .catch((err) => {
+                    console.log("Service returned failure");
+                    reject(err);
+                });
+        });
     }
 }
 
