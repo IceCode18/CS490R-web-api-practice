@@ -6,10 +6,10 @@
         </div>
         <div id="comment-wrapper">
             <div class="comment">
-                <p class="detail">Comment made by: {{user}}</p>
-                <p class="detail">Comment body: {{body}}</p>
-                <p class="detail">Comment made on: {{created_at}}</p>
-                <p class="detail" v-if="this.updated_at">Comment updated on: {{updated_at}}</p>
+                <p class="detail"><strong>Comment made by:</strong> {{user}}</p>
+                <p class="detail"><strong>Comment body:</strong> {{body}}</p>
+                <p class="detail"><strong>Comment made on:</strong> {{created_at}}</p>
+                <p class="detail" v-if="this.updated_at"><strong>Comment updated on:</strong> {{updated_at}}</p>
             </div>
         </div>
     </div>
@@ -49,3 +49,18 @@ export default {
     },
 };
 </script>
+<style scoped>
+#comment-wrapper{
+    margin: auto;
+    width: 50%;
+}
+.comment{
+    margin: 10px;
+    border: 1px solid #efefef;
+    background: #fafafa;
+    text-align: left;
+}
+.detail{
+    padding: 10px;
+}
+</style>
