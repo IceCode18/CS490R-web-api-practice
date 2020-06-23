@@ -1,6 +1,7 @@
 <template>
-    <div class="comments" >
+    <div class="comments" :key="componentKey">
         <h2>Comments Section</h2>
+        <CreateComment />
         <div class="messages" v-if="this.message">
             {{ this.message }}
         </div>
@@ -17,12 +18,14 @@
     </div>
 </template>
 <script>
-
+import CreateComment from "@/components/CreateComment";
+import EventBus from "@/services/comment-event";
 import CommentService from "@/services/comment";
 export default {
     data() {
         return {
             comments: [],
+            componentKey: 0,
             message: "Loading Comments"
         };
     },
@@ -30,19 +33,33 @@ export default {
         console.log("Load Comments Here.");
         if (this.$store.getters.loggedIn){
             const token = this.$store.getters.token;
-            CommentService.getComments(token)
-            .then((data) => {
-                this.comments = data;
-                this.message = null;
+            EventBus.$on('comment-submit', () => {
+                console.log("emitted");
+                this.componentKey += 1;
+                this.updateComments(token);
             })
-            .catch((err) => {
-                console.log("Error getting comments: ", err);
-                this.message = "Error getting comments";
-            });
+            this.updateComments(token);
         } else {
             this.message = "You must login first";
         }
+    },
+     methods: {
+         updateComments(token) {
+            CommentService.getComments(token)
+                .then((data) => {
+                    this.comments = data;
+                    this.message = null;
+                })
+                .catch((err) => {
+                    console.log("Error getting comments: ", err);
+                    this.message = "Error getting comments";
+                });
+         }
+    },
+    components: {
+        CreateComment
     }
+    
 };
 </script>
 <style scoped>
@@ -69,6 +86,7 @@ export default {
     padding: 5px;
     margin-left: 50px;
     color: #284147;
+    word-wrap: break-word;
 }
 a{
     text-decoration: none;

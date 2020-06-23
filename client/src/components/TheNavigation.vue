@@ -15,13 +15,6 @@
                 >Comments
                 </router-link>
             </li>
-            <li v-if="$store.getters.loggedIn">
-                <router-link 
-                :to="{ name: 'CreateComment'}" 
-                class="links"
-                >Create Comment
-                </router-link>
-            </li>
             <li v-if="!$store.getters.loggedIn">
                 <router-link 
                 :to="{ name: 'SignUp'}" 

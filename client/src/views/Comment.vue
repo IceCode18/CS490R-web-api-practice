@@ -59,6 +59,7 @@ export default {
     border: 1px solid #efefef;
     background: #fafafa;
     text-align: left;
+    word-wrap: break-word;
 }
 .detail{
     padding: 10px;

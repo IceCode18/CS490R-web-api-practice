@@ -40,17 +40,18 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "comment" */ "../views/Comment.vue")
   },
-  {
-    path: "/create_comment",
-    name: "CreateComment",
-    component: () =>
-      import(/* webpackChunkName: "comments" */ "../views/CreateComment.vue")
-  }
+  // {
+  //   path: "/create_comment",
+  //   name: "CreateComment",
+  //   component: () =>
+  //     import(/* webpackChunkName: "comments" */ "../views/CreateComment.vue")
+  // }
 ];
 
 const router = new VueRouter({
   mode: "history",
   routes: routes,
 });
+
 
 export default router;

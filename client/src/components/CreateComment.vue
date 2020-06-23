@@ -1,26 +1,29 @@
 <template>
     <div class="CommentForm">
         <h2>Make a Comment</h2>
-        <form name="commentForm" @submit.prevent="handleComment">
-            <div v-if="message" id="message"> {{message}}</div>
-            <div class="form_row">
-                <label for="post_id">Post Id:</label>
-                <input type="text" name="post_id" v-model="post_id" />
-            </div>
-            <div class="form_row">
-                <label for="body">Comment:</label>
-                <textarea name="body" v-model="body" placeholder="Enter your comment here..."></textarea>
-            </div>
-            <div class="form_row">
-               <button :disabled="submitted">
-                   <span>Submit</span>
-                </button>
-            </div>
-        </form>
+        <div class="comment-form">
+            <form name="commentForm" @submit.prevent="handleComment">
+                <div v-if="message" id="message"> {{message}}</div>
+                <div class="form_row">
+                    <label for="post_id">Post Id:</label>
+                    <input type="text" name="post_id" v-model="post_id" />
+                </div>
+                <div class="form_row">
+                    <label for="body">Comment:</label>
+                    <textarea name="body" v-model="body" placeholder="Enter your comment here..."></textarea>
+                </div>
+                <div class="form_row">
+                <button :disabled="submitted">
+                    <span>Submit</span>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 <script scoped>
 import CommentService from "@/services/comment";
+import EventBus from "@/services/comment-event";
 export default {
     name: "CommentForm",
     data(){
@@ -42,10 +45,12 @@ export default {
                     post_id: this.post_id,
                     body: this.body
                 })
-                .then((user) => {
-                    console.log(user);
+                .then((com) => {
+                    console.log(com);
                     this.message = "Comment submit initiated";
-                    this.$router.push("/refresh");
+                    EventBus.$emit('comment-submit', com);
+                    this.post_id = null;
+                    this.body = null;
                 })
                 .catch((err) => {
                     console.log(err);
