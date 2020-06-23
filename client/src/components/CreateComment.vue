@@ -1,20 +1,20 @@
 <template>
-    <div class="CommentForm">
-        <h2>Make a Comment</h2>
-        <div class="comment-form">
+    <div class="comment-form">
+        <h3>Make a Comment</h3>
+        <div class="form-block">
             <form name="commentForm" @submit.prevent="handleComment">
                 <div v-if="message" id="message"> {{message}}</div>
-                <div class="form_row">
-                    <label for="post_id">Post Id:</label>
+                <div class="row">
+                    <label for="post_id">Post ID:</label>
                     <input type="text" name="post_id" v-model="post_id" />
                 </div>
-                <div class="form_row">
+                <div class="row">
                     <label for="body">Comment:</label>
                     <textarea name="body" v-model="body" placeholder="Enter your comment here..."></textarea>
                 </div>
-                <div class="form_row">
-                <button :disabled="submitted">
-                    <span>Submit</span>
+                <div class="button">
+                    <button :disabled="submitted">
+                        <span>Submit</span>
                     </button>
                 </div>
             </form>
@@ -65,3 +65,57 @@ export default {
     }
 };
 </script>
+<style scoped>
+.comment-form{
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    width: 50%;
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #efefef;
+    background: #fafafa;
+}
+.row{
+    margin-bottom: 10px;
+}
+.form-block{
+    padding: 20px 0px;
+}
+.form-block label{
+    margin-left: 20px;
+    font-weight: bolder;
+}
+.form-block input{
+    margin-left: 30px;
+    width: 330px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+}
+.form-block textarea{
+    margin-left: 11px;
+    vertical-align: top;
+    width: 312px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 10px;
+    resize: vertical;
+}
+.button{
+    text-align: center;
+}
+.button button{
+    margin-top: 10px;
+    font-size: 18px;
+    background-color: #97c6cf;
+    text-shadow: 1px 1px #82b8be;
+    color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #8ab8c0;
+    cursor: pointer;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+    width: 100px;
+    height: 30px;
+
+}
+</style>
