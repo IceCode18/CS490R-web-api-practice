@@ -1,6 +1,6 @@
 <template>
     <nav id="nav">
-        <p class="logo">Simple Express/Vue Blog</p>
+        <p class="logo">BuildShare</p>
         <ul class="nav-links">
             <li>
                 <router-link :to="{ name: 'Home'}" class="links">Home</router-link>
@@ -86,5 +86,6 @@ export default {
         font-size: 20px;
         color: rgb(98, 165, 145);
         font-weight: bold;
+        padding-left: 20px;
     }
 </style>
