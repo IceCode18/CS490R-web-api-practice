@@ -19,7 +19,7 @@
                 <router-link 
                 :to="{ name: 'CreateComment'}" 
                 class="links"
-                >Comments
+                >Create Comment
                 </router-link>
             </li>
             <li v-if="!$store.getters.loggedIn">

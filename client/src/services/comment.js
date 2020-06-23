@@ -31,21 +31,25 @@ class CommentService {
                     reject(err);
                 });
         });
-    }
+    };
 
-    static postComment(token, post, body){
+    
+    static postComment(token,data){
         return new Promise((resolve, reject) => {
-            axios({
-                method: 'post',
-                url: API_URL,
-                data: {
-                  post_id: post,
-                  body: body
-                }
-              });
+            axios
+                .post(API_URL, data, { headers: {authorization: token} })
+                .then((res) => {
+                    console.log("Comment submitted");
+                    resolve(res.data);
+                })
+                .catch((err) => {
+                    console.log("Comment submit error");
+                    reject(err);
+                });
         });
-    }
+    };
     
 }
 
 export default CommentService;
+

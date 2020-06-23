@@ -1,5 +1,5 @@
 <template>
-    <div class="comments">
+    <div class="comments" >
         <h2>Comments Section</h2>
         <div class="messages" v-if="this.message">
             {{ this.message }}
@@ -17,12 +17,13 @@
     </div>
 </template>
 <script>
+
 import CommentService from "@/services/comment";
 export default {
     data() {
         return {
             comments: [],
-            message: "Loading Comments",
+            message: "Loading Comments"
         };
     },
     mounted() {
@@ -41,7 +42,7 @@ export default {
         } else {
             this.message = "You must login first";
         }
-    },
+    }
 };
 </script>
 <style scoped>
