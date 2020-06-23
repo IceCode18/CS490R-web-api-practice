@@ -36,7 +36,7 @@ router.get("/comments", function(req, res) {
 // Read one
 router.get("/comments/:id", function(req, res) {
    Comment.findOne({_id: req.params.id })
-   .populate('user_id','email')
+   .populate('user_id','name')
    .then(function(comment){
        if(comment){
            res.json(comment)

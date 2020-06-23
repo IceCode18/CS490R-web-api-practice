@@ -44,7 +44,7 @@ export default {
     },
 };
 </script>
-<style>
+<style scoped>
 #comment-wrapper{
     margin: auto;
     width: 50%;
